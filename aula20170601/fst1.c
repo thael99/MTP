@@ -5,16 +5,16 @@ struct num {
     int res;
 };
 
-void func (struct num * S){
-    int a=(* S).quo;
-    int b=(* S).res;
-    (* S).quo=a/b;
-    (* S).res=a%b;
+struct num func (struct num A, struct num B){
+    B.quo=A.quo/A.res;
+    B.res=A.quo%A.res;
+    return B;
 }
 
 main (){
-    struct num A;
+    struct num A, C;
     scanf ("%d %d",&A.quo, &A.res);
-    func (&A);
-    printf ("quociente eh %d e o resto eh %d", A.quo, A.res);
+    C=func(A, C);
+    printf ("quociente eh %d e o resto eh %d", C.quo, C.res);
+
 }
