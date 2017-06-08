@@ -42,4 +42,5 @@ main (){
     }
     B=media (A, a);
     printf ("A media dos %d numeors eh %f\nO desvio padrao amostral eh %f\nO desvio padrao populacional eh %f\n",a, B, desvio1(A, B, a), desvio2(A, B, a));
+    free (A);
 }
