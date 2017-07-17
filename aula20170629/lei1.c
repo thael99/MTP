@@ -28,6 +28,7 @@ void recuperar(){
         //printf ("caractere no while do recuperar %c\n", a);
         Texto[tam-1]=a;
     }
+    Texto[tam]='\0';
     printf ("\n%s", Texto);
 }
 
@@ -36,7 +37,8 @@ main (){
     int t=0;
     char * texto= NULL;
     recuperar();
-    printf ("\n*********************\nContinue a edicao a partir daqui, escreva e digite \\ para terminar\n**************\n");
+    printf ("\n*********************\nContinue a edicao a partir daqui\n**************");
+    printf ("escreva e digite \\ para terminar\n");
     do {
         c=getchar ();
         t++;
