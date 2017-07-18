@@ -7,7 +7,7 @@ main (){
     int a, n, i, aleatorio, *vetAleatorios, menor=200, maior=-1, soma=0, tamanho=0;
     double media;
     char nome[40], s;
-    FILE* arquivo;
+    FILE *arquivo;
     printf ("Digite 1 para criar um novo arquivo\n2 para continuar em um arquivo existente\n3 para arquivo existente\n");
     scanf ("%d", &a);
 
@@ -26,10 +26,12 @@ main (){
             }
             soma+=aleatorio;
             vetAleatorios[i]=aleatorio;
-            fprintf (arquivo, "%d ", aleatorio);
+            fprintf (arquivo, "%d\n", aleatorio);
         }
         media=soma/(double)n;
-        printf ("%lf\n", media);
+        printf ("Media %lf\nMenor %d\nMaior %d\n", media, menor, maior);
+        fclose (arquivo);
+        free (vetAleatorios);
         //nn fiz desvio padrao
     }
 
@@ -50,22 +52,45 @@ main (){
             aleatorio = rand()%100;
             fprintf (arquivo, "%d\n", aleatorio);
         }
-        fseek (arquivo, 0, SEEK_SET);
-        printf ("ate aqui td bem0\n");
-        while (!feof(arquivo)){ //dando erro nesse while, nn sei como fazer o ponteiro arquivo chegar ate o eof
-            printf ("ate aqui td bem\n");
-            fscanf (arquivo, "%d", &vetAleatorios[tamanho]);
-            //printf ("%d\n\n\n\n\n\n\n\n", vetAleatorios[tamanho]);
-            soma+=vetAleatorios[tamanho];
+        fclose (arquivo);
+        arquivo=fopen (nome, "r");
+        while (!feof(arquivo)){
+            fscanf (arquivo, "%d", &aleatorio);
+            if (menor>aleatorio){
+                menor=aleatorio;
+            }
+            if (maior<aleatorio){
+                maior=aleatorio;
+            }
+            soma+=aleatorio;
             tamanho++;
         }
         media=soma/(double)tamanho;
-        printf ("media %lf", media);
+        printf ("Media %lf\nMenor %d\nMaior %d\n", media, menor, maior);
+        fclose(arquivo);
         //nn fiz menor, maior e desvio padrao
     }
 
 
     else if (a == 3){
-        //mta preguiça pra fazer esse
+            printf ("Digite o nome do arquivo:\n");
+            scanf ("%s", &nome);
+            arquivo=fopen(nome, "r");
+            printf ("\nOs numeoros aleatorios em %s sao:\n", nome);
+            while (!feof(arquivo)){
+                fscanf (arquivo, "%d", &aleatorio);
+                printf ("%d\n", aleatorio);
+                if (aleatorio<menor){
+                    menor=aleatorio;
+                }
+                if (aleatorio>maior){
+                    maior=aleatorio;
+                }
+                tamanho++;
+                soma+=aleatorio;
+            }
+            media=soma/(double)tamanho;
+            printf ("Media %lf\nMenor %d\nMaior %d\n", media, menor, maior);
+            fclose (arquivo);
     }
 }
